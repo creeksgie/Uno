@@ -58,6 +58,10 @@ public class Joueur {
                     partie.setJoueurCourant(1);
             }
         }
+        else if(this.Mainsize() == 1 && this.getUno() == false)
+        {
+            throw new JoueurException("Le joueur n'a pas jouer et passe son tour ");
+        }
 
 
     }

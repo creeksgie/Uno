@@ -156,6 +156,19 @@ public class Partie {
         }
     }
 
+
+    public void punitionUno(Joueur j1) throws JoueurException
+    {
+        if(j1.Mainsize() == 1)
+        {
+            j1.setAJouer(false);
+            j1.Pioche();
+            j1.Pioche();
+            j1.Pioche();
+            j1.setAJouer(true);
+        }
+    }
+
     @Override
     public String toString() {
         return "Partie{" +

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class main {
     public static void main(String[] args) {
 
+        Carte Vert8 = new CarteSimple(8, "vert");
         ArrayList<Joueur> TabJoueur = new ArrayList<Joueur>();
         ArrayList<Carte> MainAlice = new ArrayList<Carte>();
         ArrayList<Carte> MainBob = new ArrayList<Carte>();
@@ -392,8 +393,61 @@ public class main {
         {
             e.printStackTrace();
         }
+        System.out.printf("Test Alice Uno bon timing passe");
+
+
+        //****************************************//
+        //**********Test Uno bon moment***********//
+        //****************************************//
+
+        partie.resetPartie();
+        partie.initialiserUno();
+        partie.setJoueurCourant(1);
+
+        Alice.clear();
+        Bob.clear();
+
+        MainAlice.add(Jaune6);
+        MainAlice.add(Vert2);
+
+        MainBob.add(Bleu2);
+        MainBob.add(Jaune4);
+
+        try{
+
+            Alice.JoueUneCarte(Vert2);
+            Alice.finTour();
+            System.out.printf("salut");
+
+
+        }catch(Exception e)
+        {
+            System.out.printf("salut");
+            try
+            {
+                partie.punitionUno(Alice);
+
+                if(Alice.Mainsize() != 4)
+                {
+                    System.out.printf("Alice n'a pas quatre carte dans les mains");
+                }
+
+                if(!partie.getTAS(partie.Tassize() - 1).equals(Vert8))
+                {
+                    System.out.println("Le huit vert n'est pas au sommet de la pioche");
+                }
+
+                if(partie.getJoueurCourant() != Bob.getOrdre())
+                {
+                    System.out.printf("Bob n'est pas le joueurs courant");
+                }
+            }catch(Exception a){a.printStackTrace();}
+
+            e.printStackTrace();
+        }
 
         System.out.printf("Test Alice Uno bon timing passe");
+
 
 
 
