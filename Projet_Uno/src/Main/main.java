@@ -76,7 +76,7 @@ public class main {
                 System.out.println("Alice n'a pas la carte jaune 6");
             }
 
-            if(!partie.get(partie.Tassize() - 1).equals(Vert2))
+            if(!partie.getTAS(partie.Tassize() - 1).equals(Vert2))
             {
                 System.out.println("Pas la bonne carte");
             }
@@ -130,7 +130,7 @@ public class main {
                 System.out.println("Boby n'a pas la carte jaune 4");
             }
 
-            if(!partie.get(partie.Tassize() - 1).equals(Bleu2))
+            if(!partie.getTAS(partie.Tassize() - 1).equals(Bleu2))
             {
                 System.out.println("Pas la bonne carte");
             }
@@ -176,6 +176,8 @@ public class main {
 
         }
 
+        System.out.printf("\nLes test coup illégaux avec carte simple passe");
+
 
         //***************************************************************//
         //**********Tests joueur pose 2 carte légales de suite***********//
@@ -210,6 +212,9 @@ public class main {
 
         }
 
+        System.out.printf("\nLes test 2 carte légale de suite passe");
+
+
 
         //*******************************************************//
         //**********Tests Alice fin de tour sans jouer***********//
@@ -226,6 +231,173 @@ public class main {
                 e.printStackTrace();
         }
 
+        System.out.printf("\nLes test Alice fin de tour sans jouer");
+
+        //***********************************************************//
+        //**********Tests d'un joueur qui joue puis pioche***********//
+        //***********************************************************//
+
+        partie.resetPartie();
+        partie.initialiser();
+
+        try{
+
+            Alice.JoueUneCarte(Vert2);
+            Alice.Pioche();
+
+        }catch(Exception e)
+        {
+            if(Alice.Mainsize() == 2)
+                 e.printStackTrace();
+            if(!partie.getPioche(partie.Piochesize() - 1).equals(Jaune6))
+            {
+                System.out.println("Pas la bonne carte");
+            }
+        }
+
+        System.out.printf("\nLes test joueur joue puis pioche passe");
+
+
+        //**********************************************************************//
+        //**********Tests de la punition pour un coup illégal d'Alice***********//
+        //**********************************************************************//
+
+        partie.resetPartie();
+        partie.initialiser();
+        partie.setJoueurCourant(1);
+
+        try{
+            if(partie.getJoueurCourant() != Alice.getOrdre())
+            {
+                System.out.printf("Alice n'est pas le bon joueur");
+            }
+
+            Alice.JoueUneCarte(Jaune6);
+
+
+
+        }catch(Exception e)
+        {
+            try
+            {
+                partie.punition(Alice);
+
+
+            }catch(Exception a){ a.printStackTrace();}
+
+            if(partie.getJoueurCourant() != Bob.getOrdre())
+            {
+                System.out.printf("Bob n'est pas le bon joueur"+partie.getJoueurCourant());
+            }
+
+            if(Alice.Mainsize() != 5)
+            {
+                System.out.println("Alice n'a pas 5 carte");
+            }
+
+            if(!partie.getPioche(partie.Piochesize() - 1).equals(Vert2))
+            {
+                System.out.println("Le deux vert n'est pas au sommet de la pioche");
+            }
+        }
+
+        System.out.println("\nTest punition Alice passe");
+
+        //***************************************************//
+        //**********Tests action bob pas sont tour***********//
+        //***************************************************//
+
+        partie.resetPartie();
+        partie.initialiser();
+        partie.setJoueurCourant(1);
+
+
+        try{
+
+            if(partie.getJoueurCourant() != Alice.getOrdre())
+            {
+                System.out.println("Alice n'est pas le joueur courant");
+            }
+
+            Bob.Pioche();
+            partie.punition(Bob);
+
+        }catch(Exception e)
+        {
+
+            if(partie.getJoueurCourant() != Alice.getOrdre())
+            {
+                System.out.println("Alice n'est pas le joueur courant");
+            }
+
+            if(Bob.Mainsize() != 5)
+            {
+                System.out.println("Bob n'a pas 5 carte");
+            }
+
+            if(!partie.getPioche(partie.Piochesize() - 1).equals(Vert2))
+            {
+                System.out.println("Le deux vert n'est pas au sommet de la pioche");
+            }
+
+        }
+        System.out.println("Test action bob pas sont tour");
+
+
+        //***********************************************//
+        //**********Tests Alice Uno bon moment***********//
+        //***********************************************//
+
+        partie.resetPartie();
+        partie.initialiserUno();
+        partie.setJoueurCourant(1);
+
+        Alice.clear();
+        Bob.clear();
+
+        MainAlice.add(Jaune6);
+        MainAlice.add(Vert2);
+
+        MainBob.add(Bleu2);
+        MainBob.add(Jaune4);
+
+        try{
+
+            if(Alice.Mainsize() != 2)
+            {
+                System.out.printf("Alice n'a pas deux carte dans les mains");
+            }
+
+            Alice.JoueUneCarte(Vert2);
+            Alice.Uno();
+            Alice.finTour();
+
+            if(Alice.Mainsize() != 1)
+            {
+                System.out.printf("Alice n'a pas une carte dans les mains");
+            }
+
+            if(!partie.getTAS(partie.Tassize() - 1).equals(Vert2))
+            {
+                System.out.println("Le deux vert n'est pas au sommet de la pioche");
+            }
+
+            if(partie.getJoueurCourant() != Bob.getOrdre())
+            {
+                System.out.printf("Bob n'est pas le joueurs courant");
+            }
+
+
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        System.out.printf("Test Alice Uno bon timing passe");
+
+
 
     }
+
+
 }

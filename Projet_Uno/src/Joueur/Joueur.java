@@ -39,21 +39,65 @@ public class Joueur {
                     }
                     else
                     {
+                        this.AJouer = true;
                         throw new CarteException("Carte illégale");
                     }
+
             }
 
 
     public void finTour() throws JoueurException {
-        if (this.AJouer == false)
-            throw new JoueurException("Le joueur n'a pas jouer et passe son tour ");
-        else {
-            this.AJouer = false;
-            if (partie.getNombreJoueur() >= this.Ordre + 1)
-                partie.setJoueurCourant(this.Ordre + 1);
-            else
-                partie.setJoueurCourant(1);
+        if(this.Mainsize() == 1 && this.getUno() == true || this.getUno() == false || this.Mainsize() > 1 ) {
+            if (this.AJouer == false)
+                throw new JoueurException("Le joueur n'a pas jouer et passe son tour ");
+            else {
+                this.AJouer = false;
+                if (partie.getNombreJoueur() >= this.Ordre + 1)
+                    partie.setJoueurCourant(this.Ordre + 1);
+                else
+                    partie.setJoueurCourant(1);
+            }
         }
+
+
+    }
+
+    public void Pioche() throws JoueurException
+    {
+        if(partie.getJoueurCourant() == this.getOrdre())
+        {
+            if(AJouer == true)
+            {
+                throw new JoueurException("Le joueur à déjà jouer, il ne peux pas piocher en plus");
+            }
+            else{
+                MainJoueur.add(partie.getPioche(partie.Piochesize() - 1));
+                partie.removePioche(partie.Piochesize() - 1);
+            }
+        }
+
+
+    }
+
+    public void Uno(){
+            this.setUno(true);
+            System.out.println(this+"\nUNOOO mon reuf");
+    }
+
+    public Boolean getUno() {
+        return Uno;
+    }
+
+    public void setUno(Boolean uno) {
+        Uno = uno;
+    }
+
+    public void setAJouer(Boolean AJouer) {
+        this.AJouer = AJouer;
+    }
+
+    public Boolean getAJouer() {
+        return AJouer;
     }
 
     public int Mainsize() {
@@ -64,12 +108,16 @@ public class Joueur {
         return Ordre;
     }
 
-    public int size() {
-        return MainJoueur.size();
-    }
-
     public Carte get(int index) {
         return MainJoueur.get(index);
+    }
+
+    public boolean add(Carte carte) {
+        return MainJoueur.add(carte);
+    }
+
+    public void clear() {
+        MainJoueur.clear();
     }
 
     @Override
