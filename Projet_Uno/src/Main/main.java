@@ -2,6 +2,7 @@ package Main;
 
 import Carte.Carte;
 import Carte.CarteSimple;
+import Carte.CartePasse;
 import Joueur.Joueur;
 import Partie.Partie;
 
@@ -397,12 +398,13 @@ public class main {
 
 
         //****************************************//
-        //**********Test Uno bon moment***********//
+        //**********Test Alice oubli Uno**********//
         //****************************************//
 
         partie.resetPartie();
         partie.initialiserUno();
         partie.setJoueurCourant(1);
+
 
         Alice.clear();
         Bob.clear();
@@ -417,39 +419,166 @@ public class main {
 
             Alice.JoueUneCarte(Vert2);
             Alice.finTour();
-            System.out.printf("salut");
-
 
         }catch(Exception e)
         {
-            System.out.printf("salut");
+
             try
             {
                 partie.punitionUno(Alice);
 
                 if(Alice.Mainsize() != 4)
                 {
-                    System.out.printf("Alice n'a pas quatre carte dans les mains");
+                    System.out.printf("\nAlice n'a pas quatre carte dans les mains");
                 }
 
-                if(!partie.getTAS(partie.Tassize() - 1).equals(Vert8))
+                if(!partie.getTAS(partie.Tassize() - 1).equals(Vert2))
                 {
-                    System.out.println("Le huit vert n'est pas au sommet de la pioche");
+                    System.out.println("\nLe huit vert n'est pas au sommet de la pioche");
                 }
 
                 if(partie.getJoueurCourant() != Bob.getOrdre())
                 {
-                    System.out.printf("Bob n'est pas le joueurs courant");
+                    System.out.printf("\nBob n'est pas le joueurs courant");
                 }
             }catch(Exception a){a.printStackTrace();}
 
             e.printStackTrace();
         }
 
-        System.out.printf("Test Alice Uno bon timing passe");
+        System.out.printf("\nTest Alice oubli Uno");
 
 
+        //****************************************//
+        //**********Test Alice oubli Uno**********//
+        //****************************************//
 
+        partie.resetPartie();
+        partie.initialiserUno();
+        partie.setJoueurCourant(1);
+
+
+        Alice.clear();
+        Bob.clear();
+
+        MainBob.add(Bleu2);
+
+        try{
+
+            if(partie.getJoueurCourant() != Alice.getOrdre())
+            {
+                System.out.printf("\nAlice n'est pas le joueurs courant");
+            }
+           Bob.Uno();
+
+        }catch(Exception e)
+        {
+
+            try
+            {
+                partie.punitionUno(Bob);
+
+                if(Bob.Mainsize() != 4)
+                {
+                    System.out.printf("\nBob n'a pas quatre carte dans les mains");
+                }
+
+                if(!partie.getTAS(partie.Tassize() - 1).equals(Vert8))
+                {
+                    System.out.println("\nLe huit vert n'est pas au sommet de la pioche");
+                }
+
+                if(partie.getJoueurCourant() != Alice.getOrdre())
+                {
+                    System.out.printf("\nAlice n'est pas le joueurs courant");
+                }
+            }catch(Exception a){a.printStackTrace();}
+
+            e.printStackTrace();
+        }
+
+        System.out.printf("\nTest Bob Uno pas son tour");
+
+
+        //***************************************//
+        //**********Test Passe ton tour**********//
+        //***************************************//
+
+        Carte PasseRouge = new CartePasse("rouge", "passe");
+        Carte PasseVert = new CartePasse("vert", "passe");
+
+        Carte Vert6 = new CarteSimple(6, "vert");
+        Carte Bleu1 = new CarteSimple(1, "bleu");
+
+        partie.resetPartie();
+        partie.initialiserPasse();
+        partie.setJoueurCourant(1);
+
+
+        Alice.clear();
+        Bob.clear();
+        Charle.clear();
+
+        MainAlice.add(PasseRouge);
+        MainAlice.add(Bleu9);
+        MainAlice.add(Jaune4);
+
+        MainBob.add(Jaune6);
+        MainBob.add(Vert6);
+        MainBob.add(Bleu7);
+
+        MainCharle.add(PasseVert);
+        MainCharle.add(Bleu1);
+        MainCharle.add(Rouge1);
+
+        try{
+            if(partie.getJoueurCourant() != Alice.getOrdre())
+            {
+                System.out.printf("\nAlice n'est pas le joueurs courant");
+            }
+
+            Alice.JoueUneCarte(PasseRouge);
+            Alice.finTour();
+
+            if(partie.getJoueurCourant() != Charle.getOrdre())
+            {
+                System.out.printf("\nCharle n'est pas le joueurs courant");
+            }
+
+            if(!partie.getTAS(partie.Tassize() - 1).equals(PasseRouge))
+            {
+                System.out.println("\nLe passe rouge n'est pas au sommet de la pioche");
+            }
+
+            Charle.JoueUneCarte(PasseVert);
+            Charle.finTour();
+
+            if(partie.getJoueurCourant() != Bob.getOrdre())
+            {
+                System.out.printf("\nBob n'est pas le joueurs courant");
+            }
+
+            if(!partie.getTAS(partie.Tassize() - 1).equals(PasseVert))
+            {
+                System.out.println("\nLe passe vert n'est pas au sommet de la pioche");
+            }
+
+            Bob.JoueUneCarte(Vert6);
+            Bob.finTour();
+
+            if(partie.getJoueurCourant() != Charle.getOrdre())
+            {
+                System.out.printf("\nCharle n'est pas le joueurs courant");
+            }
+
+            if(!partie.getTAS(partie.Tassize() - 1).equals(Vert6))
+            {
+                System.out.println("\nLe 6 vert n'est pas au sommet de la pioche");
+            }
+
+        }catch(Exception e){e.printStackTrace();}
+
+        System.out.printf("\nTest Passe ton tour");
 
     }
 

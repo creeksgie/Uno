@@ -1,5 +1,7 @@
 package Carte;
 
+import Joueur.Joueur;
+
 import java.util.Objects;
 
 public class CarteSimple implements Carte {
@@ -34,7 +36,7 @@ public class CarteSimple implements Carte {
     }
 
     @Override
-    public void faireEffet() {
+    public void faireEffet(Joueur j1) {
 
     }
 

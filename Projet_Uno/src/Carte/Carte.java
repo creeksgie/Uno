@@ -1,7 +1,10 @@
 package Carte;
 
+import Joueur.Joueur;
+
 public interface Carte {
 
-    void faireEffet();
+    void faireEffet(Joueur j1);
+
 
 }
