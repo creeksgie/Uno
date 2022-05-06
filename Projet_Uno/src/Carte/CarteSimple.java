@@ -4,13 +4,13 @@ import Joueur.Joueur;
 
 import java.util.Objects;
 
-public class CarteSimple implements Carte {
+public class CarteSimple extends Carte {
 
     private int Numero;
-    private String Couleur;
+
 
     public CarteSimple(int numero, String couleur) {
-        setCouleur(couleur);
+        super(couleur);
         setNumero(numero);
     }
 

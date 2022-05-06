@@ -3,15 +3,11 @@ package Carte;
 
 import Joueur.Joueur;
 
-public class CartePasse implements Carte{
-
-    private String Couleur;
-    private String Passe;
-
+public class CartePasse extends Carte{
 
     public CartePasse(String couleur, String passe) {
-        setCouleur(couleur);
-        setPasse(passe);
+        super(couleur);
+
     }
 
     public String getCouleur() {
@@ -23,18 +19,6 @@ public class CartePasse implements Carte{
             throw new IllegalArgumentException("couleur vide");
         Couleur = couleur;
     }
-
-    public String getPasse() {
-        return Passe;
-    }
-
-    public void setPasse(String passe) {
-        if(passe == null || passe.trim().equals(""))
-            throw new IllegalArgumentException("passe vide");
-        Passe = passe;
-    }
-
-
 
     @Override
     public void faireEffet(Joueur j1) {

@@ -3,10 +3,13 @@ package Main;
 import Carte.Carte;
 import Carte.CarteSimple;
 import Carte.CartePasse;
+import Carte.CartePlusDeux;
 import Joueur.Joueur;
 import Partie.Partie;
 
 import java.util.ArrayList;
+
+import static java.lang.System.exit;
 
 public class main {
     public static void main(String[] args) {
@@ -53,7 +56,7 @@ public class main {
         try{
             if(partie.getJoueurCourant() != Alice.getOrdre())
             {
-                System.out.println("Alice n'est pas le joueur courant");
+                throw new IllegalArgumentException("Alice n'est pas le joueurs courant");
             }
             if (Alice.Mainsize() != 3)
             {
@@ -101,6 +104,7 @@ public class main {
 
         } catch (Exception e) {
             e.printStackTrace();
+            exit(1);
         }
 
 
@@ -173,12 +177,14 @@ public class main {
             if(Alice.Mainsize() == 3)
             {
                 System.out.println("\n");
-                e.printStackTrace();
+
             }
+            e.printStackTrace();
+            System.out.printf("\nLes test coup illégaux avec carte simple passe");
 
         }
 
-        System.out.printf("\nLes test coup illégaux avec carte simple passe");
+
 
 
         //***************************************************************//
@@ -578,9 +584,193 @@ public class main {
 
         }catch(Exception e){e.printStackTrace();}
 
-        System.out.printf("\nTest Passe ton tour");
+        System.out.printf("\nTest Passe ton tour : OK");
+
+
+        //********************************************************//
+        //**********Test Carte simple illégale sur Passe**********//
+        //********************************************************//
+
+        partie.resetPartie();
+        partie.initialiserPasse();
+        partie.setJoueurCourant(1);
+
+
+        Alice.clear();
+        Bob.clear();
+        Charle.clear();
+
+        MainAlice.add(PasseRouge);
+        MainAlice.add(Bleu9);
+        MainAlice.add(Jaune4);
+
+        MainBob.add(Jaune6);
+        MainBob.add(Vert6);
+        MainBob.add(Bleu7);
+
+        MainCharle.add(PasseVert);
+        MainCharle.add(Bleu1);
+        MainCharle.add(Rouge1);
+
+        try {
+            if (partie.getJoueurCourant() != Alice.getOrdre()) {
+                System.out.printf("\nAlice n'est pas le joueurs courant");
+            }
+
+            Alice.JoueUneCarte(PasseRouge);
+            Alice.finTour();
+
+            if (partie.getJoueurCourant() != Charle.getOrdre()) {
+                System.out.printf("\nCharle n'est pas le joueurs courant");
+            }
+
+            if (!partie.getTAS(partie.Tassize() - 1).equals(PasseRouge)) {
+                System.out.println("\nLe passe rouge n'est pas au sommet de la pioche");
+            }
+
+            Charle.JoueUneCarte(Bleu1);
+            Charle.finTour();
+
+            if(Charle.Mainsize() != 3)
+            {
+                throw new IllegalArgumentException("Charle n'a pas 3 carte dans la main");
+            }
+
+        }catch(Exception e){e.printStackTrace();
+            System.out.printf("\nTest carte simple illégale sur Passe : OK\n");
+        }
+
+        //*******************************************************//
+        //**********Test Carte Passe illégal sur simple**********//
+        //*******************************************************//
+
+        partie.resetPartie();
+        partie.initialiserPasse();
+        partie.setJoueurCourant(1);
+
+
+        Alice.clear();
+        Bob.clear();
+        Charle.clear();
+
+        MainAlice.add(PasseRouge);
+        MainAlice.add(Bleu9);
+        MainAlice.add(Jaune4);
+
+        MainBob.add(Jaune6);
+        MainBob.add(Vert6);
+        MainBob.add(Bleu7);
+
+        MainCharle.add(PasseVert);
+        MainCharle.add(Bleu1);
+        MainCharle.add(Rouge1);
+
+        try {
+            if (partie.getJoueurCourant() != Alice.getOrdre()) {
+                System.out.printf("\nAlice n'est pas le joueurs courant");
+            }
+
+            Alice.JoueUneCarte(Bleu9);
+            Alice.finTour();
+
+            Bob.JoueUneCarte(Bleu7);
+            Bob.finTour();
+
+            if (partie.getJoueurCourant() != Charle.getOrdre()) {
+                System.out.printf("\nCharle n'est pas le joueurs courant");
+            }
+
+            if(Charle.Mainsize() != 3)
+            {
+                throw new IllegalArgumentException("Charle n'a pas 3 carte dans la main");
+            }
+
+            Charle.JoueUneCarte(PasseVert);
+            Charle.finTour();
+
+            if(Charle.Mainsize() != 3)
+            {
+                throw new IllegalArgumentException("Charle n'a pas 3 carte dans la main");
+            }
+
+
+        }catch (Exception e){e.printStackTrace();
+            System.out.printf("\nTest carte passe illégale sur Simple : OK\n");
+        }
+
+
+        partie.resetPartie();
+        partie.initialiserPlusDeux();
+        partie.setJoueurCourant(1);
+
+        Carte Vert2P = new CartePlusDeux("vert");
+        Carte Vert1 = new CarteSimple(1, "vert");
+
+
+        Alice.clear();
+        Bob.clear();
+        Charle.clear();
+
+        MainAlice.add(Vert2P);
+        MainAlice.add(Bleu9);
+        MainAlice.add(Jaune4);
+
+        MainBob.add(Jaune6);
+        MainBob.add(Vert6);
+        MainBob.add(Bleu7);
+
+        MainCharle.add(Vert2P);
+        MainCharle.add(Bleu1);
+        MainCharle.add(Vert1);
+
+        try {
+            if (partie.getJoueurCourant() != Alice.getOrdre()) {
+                throw new IllegalArgumentException("\nAlice n'est pas le joueur courant");
+            }
+
+            Alice.JoueUneCarte(Vert2P);
+            Alice.finTour();
+
+            if (partie.getJoueurCourant() != Bob.getOrdre()) {
+                System.out.printf("\nAlice n'est pas le joueurs courant");
+            }
+
+            if(Bob.Mainsize() != 3)
+            {
+                throw new IllegalArgumentException("Bob n'a pas 3 carte dans la main");
+            }
+
+            Bob.Encaisser();
+            System.out.println(Bob);
+            if(Bob.Mainsize() != 5)
+            {
+                throw new IllegalArgumentException("Bob n'a pas 5 carte dans la main");
+            }
+
+            if (partie.getJoueurCourant() != Charle.getOrdre()) {
+                System.out.printf("\nAlice n'est pas le joueurs courant");
+            }
+
+            Charle.JoueUneCarte(Vert1);
+            Charle.finTour();
+
+            if(Charle.Mainsize() != 2)
+            {
+                throw new IllegalArgumentException("Charlo n'a pas 2 carte dans la main");
+            }
+
+        }catch (Exception e){e.printStackTrace();
+            System.out.printf("\nTest carte passe illégale sur Simple : OK\n");
+        }
+        
+
+
 
     }
+
+
+
+
 
 
 }

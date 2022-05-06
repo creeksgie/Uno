@@ -17,6 +17,8 @@ public class Joueur {
     Partie partie = Partie.getInstance();
     private Boolean AJouer = false;
     private Boolean Passe = false;
+    private int Encaisse = 0;
+    private boolean PlusDeux = false;
 
     public Joueur(String nom, int ordre, ArrayList<Carte> mainJoueur) {
         Nom = nom;
@@ -25,7 +27,7 @@ public class Joueur {
         MainJoueur = mainJoueur;
     }
 
-    public void JoueUneCarte(CarteSimple carte)throws CarteException , JoueurException {
+    public void JoueUneCarte(CarteSimple carte) throws Exception {
 
         if (carte == null)
             throw new CarteException("Aucune carte a ajouter");
@@ -47,7 +49,7 @@ public class Joueur {
             }
 
 
-    public void JoueUneCarte(Carte carte)throws CarteException , JoueurException {
+    public void JoueUneCarte(Carte carte) throws Exception {
 
         if (carte == null)
             throw new CarteException("Aucune carte a ajouter");
@@ -70,6 +72,8 @@ public class Joueur {
 
     public void finTour() throws JoueurException {
         if(this.getPasse() == false) {
+            if(this.isPlusDeux() == false)
+            {
             if (this.Mainsize() == 1 && this.getUno() == true || this.getUno() == false && this.Mainsize() > 1) {
                 if (this.AJouer == false)
                     throw new JoueurException("Le joueur n'a pas jouer et passe son tour ");
@@ -87,9 +91,9 @@ public class Joueur {
                 else
                     partie.setJoueurCourant(1);
 
-                throw new JoueurException("Le joueur n'a pas jouer et passe son tour ");
-
+                throw new JoueurException("Le joueur n'a pas jouer et passe son tour "); }
             }
+
         } else
         {
             this.setPasse(false);
@@ -120,6 +124,16 @@ public class Joueur {
         }
 
 
+    }
+
+    public void Encaisser() throws JoueurException {
+
+        this.setPlusDeux(true);
+        if(this.isPlusDeux() == true)
+        {
+           partie.punition(this);
+            this.setPlusDeux(false);
+        }
     }
 
     public void Pioche() throws JoueurException
@@ -190,6 +204,14 @@ public class Joueur {
 
     public void setPasse(Boolean passe) {
         Passe = passe;
+    }
+
+    public boolean isPlusDeux() {
+        return PlusDeux;
+    }
+
+    public void setPlusDeux(boolean plusDeux) {
+        PlusDeux = plusDeux;
     }
 
     @Override
