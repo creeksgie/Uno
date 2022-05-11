@@ -3,16 +3,16 @@ package Expert;
 import Carte.Carte;
 import Partie.Partie;
 
-public abstract class Valide extends Partie {
+public abstract class Valide{
 
 
-    private Valide suivant = null;
+    private Valide suivant;
 
     public Valide(Valide suivant) {
         this.suivant = suivant;
     }
 
-    public boolean traiter(Carte carte, Carte carteTas) throws Exception {
+    public boolean traiter(Carte carte, Carte carteTas){
         if(saitTester(carte, carteTas))
         {
             return Test(carte, carteTas);
@@ -33,7 +33,7 @@ public abstract class Valide extends Partie {
         return suivant;
     }
 
-    public abstract boolean Test(Carte carte, Carte carteTas) throws Exception;
+    public abstract boolean Test(Carte carte, Carte carteTas);
 
     public abstract boolean saitTester(Carte carte, Carte CarteTas);
 }

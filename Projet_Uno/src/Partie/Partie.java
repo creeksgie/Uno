@@ -5,10 +5,17 @@ import Carte.CarteSimple;
 import Expert.*;
 import Joueur.Joueur;
 import Exception.JoueurException;
+import Exception.TasException;
+import Exception.UnoException;
+import Exception.PiocheException;
 
 import java.util.ArrayList;
 
+/**
+ *
+ */
 public class Partie {
+
     private int NombreJoueur;
     private int JoueurCourant;
     private ArrayList<Carte> LeTas = new ArrayList<Carte>();
@@ -27,10 +34,18 @@ public class Partie {
         return NombreJoueur;
     }
 
+    /**
+     *
+     * @param nombreJoueur
+     */
     public void setNombreJoueur(int nombreJoueur) {
         NombreJoueur = nombreJoueur;
     }
 
+    /**
+     *
+     * @return JoueurCourant
+     */
     public int getJoueurCourant() {
         return JoueurCourant;
     }
@@ -47,9 +62,15 @@ public class Partie {
         return instance;
     }
 
-    public boolean PoseValide(Carte c) throws Exception {
+    /**
+     *
+     * @param c == Carte
+     * @return Boolean, 1 Si la carte est valide 0 sinon
+     * @throws TasException
+     */
+    public boolean PoseValide(Carte c) throws TasException{
         if(Tassize() == 0)
-            throw new IllegalArgumentException("Tas vide");
+            throw new TasException("Tas vide");
 
         Valide v = null;
         v = new ValideSimpleSurSimple(v);
@@ -57,16 +78,13 @@ public class Partie {
         v = new ValidePasseSurPasse(v);
         v = new ValidePasseSurSimple(v);
         v = new ValidePlusDeuxSurSimple(v);
+        v = new ValideSimpleSurPlusDeux(v);
 
         Carte CarteTas = getTAS(Tassize() - 1);
-        try{
-            if(v.traiter(c, CarteTas))
-            {
-                return true;
-            }
-        }catch (Exception e){e.printStackTrace();}
 
-        return false;
+        return v.traiter(c, CarteTas);
+
+
     }
 
 
@@ -188,7 +206,7 @@ public class Partie {
         return LaPioche.remove(index);
     }
 
-    public void punition(Joueur j1) throws JoueurException {
+    public void punition(Joueur j1) throws JoueurException, PiocheException, UnoException {
 
         if(this.getJoueurCourant() == j1.getOrdre())
         {
@@ -204,7 +222,7 @@ public class Partie {
     }
 
 
-    public void punitionUno(Joueur j1) throws JoueurException
+    public void punitionUno(Joueur j1) throws JoueurException, PiocheException
     {
         int i = this.JoueurCourant;
         if(j1.getOrdre() != this.JoueurCourant && j1.getUno() == true)
@@ -221,8 +239,7 @@ public class Partie {
 
     }
 
-    public void punition2Carte(Joueur j1) throws JoueurException
-    {
+    public void punition2Carte(Joueur j1) throws JoueurException, PiocheException, UnoException {
         j1.setAJouer(false);
         j1.Pioche();
         j1.Pioche();
@@ -230,7 +247,7 @@ public class Partie {
         j1.finTour();
     }
 
-    public void punition3Carte(Joueur j1) throws JoueurException
+    public void punition3Carte(Joueur j1) throws PiocheException
     {
         this.setJoueurCourant(j1.getOrdre());
         j1.setAJouer(false);

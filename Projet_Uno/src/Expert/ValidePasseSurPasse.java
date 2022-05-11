@@ -11,7 +11,7 @@ public class ValidePasseSurPasse extends Valide {
     }
 
     @Override
-    public boolean Test(Carte carte, Carte carteTas) throws Exception {
+    public boolean Test(Carte carte, Carte carteTas){
 
 
         if (saitTester(carte, carteTas)) {

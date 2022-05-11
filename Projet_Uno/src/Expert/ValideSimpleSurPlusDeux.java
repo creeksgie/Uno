@@ -5,21 +5,17 @@ import Carte.CarteSimple;
 import Carte.CartePasse;
 import Carte.CartePlusDeux;
 
+public class ValideSimpleSurPlusDeux extends Valide{
 
-public class ValidePlusDeuxSurSimple extends Valide {
-
-
-
-    public ValidePlusDeuxSurSimple(Valide suivant) {
+    public ValideSimpleSurPlusDeux(Valide suivant) {
         super(suivant);
     }
 
     @Override
     public boolean Test(Carte carte, Carte carteTas) {
 
-
-        CartePlusDeux cp = (CartePlusDeux) carte;
-        CarteSimple cs = (CarteSimple) carteTas;
+        CartePlusDeux cp = (CartePlusDeux) carteTas;
+        CarteSimple cs = (CarteSimple) carte;
         return cp.getCouleur() == cs.getCouleur();
 
     }
@@ -27,7 +23,7 @@ public class ValidePlusDeuxSurSimple extends Valide {
     @Override
     public boolean saitTester(Carte carte, Carte carteTas) {
 
-        if (carte instanceof CartePlusDeux && carteTas instanceof CarteSimple) {
+        if (carte instanceof CarteSimple && carteTas instanceof CartePlusDeux) {
             return true;
         }
         return false;

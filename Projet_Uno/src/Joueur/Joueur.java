@@ -5,6 +5,9 @@ import Partie.Partie;
 import Carte.CarteSimple;
 import Exception.CarteException;
 import Exception.JoueurException;
+import Exception.TasException;
+import Exception.PiocheException;
+import Exception.UnoException;
 
 import java.util.ArrayList;
 
@@ -49,7 +52,7 @@ public class Joueur {
             }
 
 
-    public void JoueUneCarte(Carte carte) throws Exception {
+    public void JoueUneCarte(Carte carte) throws CarteException, JoueurException, TasException {
 
         if (carte == null)
             throw new CarteException("Aucune carte a ajouter");
@@ -70,10 +73,8 @@ public class Joueur {
 
     }
 
-    public void finTour() throws JoueurException {
+    public void finTour() throws JoueurException, UnoException {
         if(this.getPasse() == false) {
-            if(this.isPlusDeux() == false)
-            {
             if (this.Mainsize() == 1 && this.getUno() == true || this.getUno() == false && this.Mainsize() > 1) {
                 if (this.AJouer == false)
                     throw new JoueurException("Le joueur n'a pas jouer et passe son tour ");
@@ -85,6 +86,10 @@ public class Joueur {
                         partie.setJoueurCourant(1);
                 }
             } else {
+                if(this.getUno() == false && this.Mainsize() == 1)
+                {
+                    throw new UnoException("Oublie de dire Uno");
+                }
                 this.AJouer = false;
                 if (partie.getNombreJoueur() >= this.Ordre + 1)
                     partie.setJoueurCourant(this.Ordre + 1);
@@ -94,7 +99,7 @@ public class Joueur {
                 throw new JoueurException("Le joueur n'a pas jouer et passe son tour "); }
             }
 
-        } else
+         else
         {
             this.setPasse(false);
             if (this.Mainsize() == 1 && this.getUno() == true || this.getUno() == false && this.Mainsize() > 1) {
@@ -126,39 +131,46 @@ public class Joueur {
 
     }
 
-    public void Encaisser() throws JoueurException {
+    public void Encaisser() throws JoueurException, PiocheException, UnoException {
 
         this.setPlusDeux(true);
         if(this.isPlusDeux() == true)
         {
+
            partie.punition(this);
-            this.setPlusDeux(false);
+           this.setPlusDeux(false);
+           this.setAJouer(true);
+           this.finTour();
+
         }
     }
 
-    public void Pioche() throws JoueurException
+    public void Pioche() throws PiocheException
     {
-        if(partie.getJoueurCourant() == this.getOrdre())
+        if(AJouer == true)
         {
-            if(AJouer == true)
-            {
-                throw new JoueurException("Le joueur à déjà jouer, il ne peux pas piocher en plus");
-            }
-            else{
+            throw new PiocheException("Le joueur à déjà jouer, il ne peux pas piocher en plus");
+        }
+        else if(partie.getJoueurCourant() != this.getOrdre())
+        {
+            throw new PiocheException("Ce n'es pas sont tour de jouer");
+        }
+
+       if(partie.getJoueurCourant() == this.getOrdre())
+        {
                 MainJoueur.add(partie.getPioche(partie.Piochesize() - 1));
                 partie.removePioche(partie.Piochesize() - 1);
-            }
         }
 
 
     }
 
-    public void Uno(){
+    public void Uno() throws UnoException{
             this.setUno(true);
-            System.out.println("\nUNOOOO !");
+            System.out.println("UNOOOO !");
             if(partie.getJoueurCourant() != this.getOrdre())
             {
-                throw new IllegalArgumentException("Dit Uno pas son tour");
+                throw new UnoException("Dit Uno pas son tour");
             }
     }
 
