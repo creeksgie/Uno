@@ -7,6 +7,10 @@ import Carte.CartePlusDeux;
 
 public class ValideSimpleSurPlusDeux extends Valide{
 
+    /**
+     * Constructeur de la classe ValideSimpleSurPlusDeux
+     * @param suivant
+     */
     public ValideSimpleSurPlusDeux(Valide suivant) {
         super(suivant);
     }

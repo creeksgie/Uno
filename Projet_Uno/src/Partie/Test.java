@@ -5,7 +5,6 @@ import Carte.CarteSimple;
 import Carte.CartePasse;
 import Carte.CartePlusDeux;
 import Joueur.Joueur;
-import Partie.Partie;
 import Exception.CarteException;
 import Exception.JoueurException;
 import Exception.TasException;
@@ -16,6 +15,9 @@ import java.util.ArrayList;
 
 import static java.lang.System.exit;
 
+/**
+ * Classe de test
+ */
 public class Test {
 
     Carte Vert8 = new CarteSimple(8, "vert");
@@ -43,8 +45,8 @@ public class Test {
     Joueur Alice = new Joueur("Alice", 1, MainAlice);
     Joueur Charle = new Joueur("Charles", 3, MainCharle);
 
-    Carte PasseRouge = new CartePasse("rouge", "passe");
-    Carte PasseVert = new CartePasse("vert", "passe");
+    Carte PasseRouge = new CartePasse("rouge");
+    Carte PasseVert = new CartePasse("vert");
 
     Carte Vert6 = new CarteSimple(6, "vert");
     Carte Bleu1 = new CarteSimple(1, "bleu");
@@ -53,8 +55,10 @@ public class Test {
     Carte Vert1 = new CarteSimple(1, "vert");
 
 
-
-
+    /**
+     * Teste si la carte pauser par Alice est bien de la bonne couleur
+     * @param partie la partie
+     */
     public  void AliceBonneCouleur(Partie partie)
     {
         partie.initialiser();
@@ -119,7 +123,10 @@ public class Test {
         }
     }
 
-
+    /**
+     * Teste si la carte pauser par Bob est bien valide alors qu'elle na pas la bonne couleur
+     * @param partie
+     */
     public void BobBonneCarteCouleurDiff(Partie partie)
     {
 
@@ -175,8 +182,11 @@ public class Test {
         }
     }
 
-
-    public void TestCarteIllegale(Partie partie)
+    /**
+     * Teste si la carte pauser est Illegale
+     * @param partie
+     */
+    public void CarteIllegale(Partie partie)
     {
         partie.resetPartie();
         partie.initialiser();
@@ -207,6 +217,10 @@ public class Test {
 
     }
 
+    /**
+     * Teste sur l'exception ou un joueur joue 2 carte legal lors du même tour
+     * @param partie la partie
+     */
     public void DeuxCarteLegale(Partie partie)
     {
         partie.resetPartie();
@@ -262,6 +276,10 @@ public class Test {
 
     }
 
+    /**
+     * Teste sur l'exception ou un joueur fini son tour sans jouer de carte
+     * @param partie la partie
+     */
     public void FaitRien(Partie partie)
     {
         Alice.clear();
@@ -287,6 +305,10 @@ public class Test {
 
     }
 
+    /**
+     * Teste sur l'exception ou un joueur joue une carte puis pioche une carte
+     * @param partie la partie
+     */
     public void JouePuisPioche(Partie partie)
     {
         partie.resetPartie();
@@ -326,6 +348,10 @@ public class Test {
 
     }
 
+    /**
+     * Teste de la punition quand Alice joue une carte illegale
+     * @param partie la partie
+     */
     public void AlicePunition(Partie partie)
     {
         partie.resetPartie();
@@ -385,7 +411,11 @@ public class Test {
         }
     }
 
-    public void TestBobPasSontTour(Partie partie)
+    /**
+     * Teste de la punition quand Bob décide de jouer alors que ce n'est pas son tour
+     * @param partie la partie
+     */
+    public void BobPasSontTour(Partie partie)
     {
         partie.resetPartie();
         partie.initialiser();
@@ -445,6 +475,10 @@ public class Test {
 
     }
 
+    /**
+     * Teste quand Alice dit Uno
+     * @param partie la partie
+     */
     public void AliceUno(Partie partie)
     {
         partie.resetPartie();
@@ -494,6 +528,10 @@ public class Test {
         }
     }
 
+    /**
+     * Teste quand Alice oublie de dire uno
+     * @param partie la partie
+     */
     public void AliceOublieUno(Partie partie)
     {
         partie.resetPartie();
@@ -557,6 +595,10 @@ public class Test {
 
     }
 
+    /**
+     * Teste de la punition quand Bob dit Uno alors que ce n'est pas son tour
+     * @param partie la partie
+     */
     public void BobUnoPasSontTour(Partie partie)
     {
         partie.resetPartie();
@@ -613,6 +655,10 @@ public class Test {
 
     }
 
+    /**
+     * Teste sur les cartes Passe tour
+     * @param partie la partie
+     */
     public void AliceJouePasseTour(Partie partie)
     {
 
@@ -700,6 +746,10 @@ public class Test {
 
     }
 
+    /**
+     * Teste de la pause illegale d'une carte simple sur une carte passe tour d'une autre couleur
+     * @param partie la partie
+     */
     public void SimpleSurPasseIllegale(Partie partie)
     {
         partie.resetPartie();
@@ -763,6 +813,10 @@ public class Test {
         }
     }
 
+    /**
+     * Teste de la pause illegale d'une carte passe tour sur une carte passe simple d'une autre couleur
+     * @param partie la partie
+     */
     public void PasseSurSimpleIllegale(Partie partie) {
         partie.resetPartie();
         partie.initialiserPasse();
@@ -830,6 +884,10 @@ public class Test {
         }
     }
 
+    /**
+     * Teste sur l'utilisation de la carte PlusDeux
+     * @param partie la partie
+     */
     public void PlusDeux(Partie partie)
     {
         partie.resetPartie();

@@ -5,7 +5,10 @@ import Carte.CartePasse;
 
 public class ValidePasseSurPasse extends Valide {
 
-
+    /**
+     * Constructeur de la classe ValidePasseSurPasse
+     * @param suivant
+     */
     public ValidePasseSurPasse(Valide suivant) {
         super(suivant);
     }

@@ -6,9 +6,10 @@ import Carte.CartePasse;
 import Partie.Partie;
 
 public class ValidePasseSurSimple extends Valide {
-
-
-
+    /**
+     * constructeur de la classe ValidePasseSurSimple
+     * @param suivant
+     */
     public ValidePasseSurSimple(Valide suivant) {
         super(suivant);
     }

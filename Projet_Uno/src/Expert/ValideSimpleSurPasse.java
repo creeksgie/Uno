@@ -5,13 +5,13 @@ import Carte.CarteSimple;
 import Carte.CartePasse;
 
 public class ValideSimpleSurPasse extends Valide{
-
-
+    /**
+     * Constructeur de la classe ValideSimpleSurPasse
+     * @param suivant
+     */
     public ValideSimpleSurPasse(Valide suivant) {
         super(suivant);
     }
-
-
 
     @Override
     public boolean Test(Carte carte, Carte carteTas){

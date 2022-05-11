@@ -4,7 +4,10 @@ import Partie.Partie;
 import Partie.Test;
 
 public class main {
-
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
 
         Partie partie = Partie.getInstance();
@@ -14,7 +17,7 @@ public class main {
 
         T1.BobBonneCarteCouleurDiff(partie);
 
-        T1.TestCarteIllegale(partie);
+        T1.CarteIllegale(partie);
 
         T1.DeuxCarteLegale(partie);
 
@@ -24,7 +27,7 @@ public class main {
 
         T1.AlicePunition(partie);
 
-        T1.TestBobPasSontTour(partie);
+        T1.BobPasSontTour(partie);
 
         T1.AliceUno(partie);
 
