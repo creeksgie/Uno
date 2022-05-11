@@ -30,28 +30,14 @@ public class Joueur {
         MainJoueur = mainJoueur;
     }
 
-    public void JoueUneCarte(CarteSimple carte) throws Exception {
 
-        if (carte == null)
-            throw new CarteException("Aucune carte a ajouter");
-        if(this.AJouer == true)
-            throw new JoueurException("Le joueur à déjà jouer");
-
-                    if (partie.PoseValide(carte)) {
-                        carte.faireEffet(this);
-                        partie.addAuTas(carte);
-                        MainJoueur.remove(carte);
-                        this.AJouer = true;
-                    }
-                    else
-                    {
-                        this.AJouer = true;
-                        throw new CarteException("Carte illégale");
-                    }
-
-            }
-
-
+    /**
+     *
+     * @param carte
+     * @throws CarteException
+     * @throws JoueurException
+     * @throws TasException
+     */
     public void JoueUneCarte(Carte carte) throws CarteException, JoueurException, TasException {
 
         if (carte == null)
@@ -73,6 +59,11 @@ public class Joueur {
 
     }
 
+    /**
+     *
+     * @throws JoueurException
+     * @throws UnoException
+     */
     public void finTour() throws JoueurException, UnoException {
         if(this.getPasse() == false) {
             if (this.Mainsize() == 1 && this.getUno() == true || this.getUno() == false && this.Mainsize() > 1) {
@@ -131,6 +122,12 @@ public class Joueur {
 
     }
 
+    /**
+     * 
+     * @throws JoueurException
+     * @throws PiocheException
+     * @throws UnoException
+     */
     public void Encaisser() throws JoueurException, PiocheException, UnoException {
 
         this.setPlusDeux(true);

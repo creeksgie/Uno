@@ -20,13 +20,11 @@ public class Partie {
     private int JoueurCourant;
     private ArrayList<Carte> LeTas = new ArrayList<Carte>();
     private ArrayList<Carte> LaPioche = new ArrayList<Carte>();
-    private ArrayList<Joueur> TabJoueur = new ArrayList<Joueur>();
     private static Partie instance = null;
 
     public Partie() {
         NombreJoueur = 3;
         JoueurCourant = 1;
-        TabJoueur = new ArrayList<Joueur>();
     }
 
 
