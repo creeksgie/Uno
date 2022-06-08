@@ -2,16 +2,14 @@ package Expert;
 
 import Carte.Carte;
 import Carte.CarteSimple;
+import Carte.CartePasse;
 
-
-
-public class ValideSimpleSurSimple extends Valide{
-
+public class ValideSimpleSurPasse extends Valide{
     /**
-     * Constructeur de la classe ValideSimpleSurSimple
+     * Constructeur de la classe ValideSimpleSurPasse
      * @param suivant
      */
-    public ValideSimpleSurSimple(Valide suivant) {
+    public ValideSimpleSurPasse(Valide suivant) {
         super(suivant);
     }
 
@@ -19,12 +17,11 @@ public class ValideSimpleSurSimple extends Valide{
     public boolean Test(Carte carte, Carte carteTas){
 
 
-        if(saitTester(carte, carteTas))
+        if(saitTester(carte,carteTas))
         {
             CarteSimple cp = (CarteSimple) carte;
-            CarteSimple cs = (CarteSimple) carteTas;
-
-                return cp.getCouleur() == cs.getCouleur() || cp.getNumero() == cs.getNumero();
+            CartePasse cs = (CartePasse) carteTas;
+                return cp.getCouleur() == cs.getCouleur();
 
         }
 
@@ -34,10 +31,12 @@ public class ValideSimpleSurSimple extends Valide{
 
     @Override
     public boolean saitTester(Carte carte, Carte carteTas) {
-        if(carte instanceof CarteSimple && carteTas instanceof CarteSimple)
+
+        if(carte instanceof CarteSimple && carteTas instanceof CartePasse)
         {
             return true;
         }
         return false;
     }
 }
+

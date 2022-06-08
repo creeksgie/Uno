@@ -74,60 +74,86 @@ public class Joueur {
      * @throws UnoException si le joueur Ã  oubliÃ© de dire uno
      */
     public void finTour() throws JoueurException, UnoException {
-        if(this.getPasse() == false) {
-            if (this.Mainsize() == 1 && this.getUno() == true || this.getUno() == false && this.Mainsize() > 1) {
-                if (this.AJouer == false)
-                    throw new JoueurException("Le joueur n'a pas jouer et passe son tour ");
-                else {
+            if(this.getPasse() == false) {
+                if (this.Mainsize() == 1 && this.getUno() == true || this.getUno() == false && this.Mainsize() > 1) {
+                    if (this.AJouer == false)
+                        throw new JoueurException("Le joueur n'a pas jouer et passe son tour ");
+                    else {
+                        this.AJouer = false;
+                        if (partie.getNombreJoueur() >= this.Ordre + 1)
+                        {
+                        	partie.setJoueurCourant(this.Ordre + 1);
+                        	this.setUno(false);
+                        }
+                        else
+                        {
+                        	partie.setJoueurCourant(1);
+                        	this.setUno(false);
+                        }
+                    }
+                } else {
+                    if(this.getUno() == false && this.Mainsize() == 1)
+                    {
+                        throw new UnoException("Oublie de dire Uno");
+                    }
                     this.AJouer = false;
                     if (partie.getNombreJoueur() >= this.Ordre + 1)
-                        partie.setJoueurCourant(this.Ordre + 1);
+                    {
+                    	partie.setJoueurCourant(this.Ordre + 1);
+                    	this.setUno(false);
+                    }
                     else
-                        partie.setJoueurCourant(1);
-                }
-            } else {
-                if(this.getUno() == false && this.Mainsize() == 1)
-                {
-                    throw new UnoException("Oublie de dire Uno");
-                }
-                this.AJouer = false;
-                if (partie.getNombreJoueur() >= this.Ordre + 1)
-                    partie.setJoueurCourant(this.Ordre + 1);
-                else
-                    partie.setJoueurCourant(1);
+                    {
+                    	partie.setJoueurCourant(1);
+                    	this.setUno(false);
+                    }
+                       
 
-                throw new JoueurException("Le joueur n'a pas jouer et passe son tour "); }
-            }
+                    throw new UnoException("Le Joueur à dit Uno mais à plus de une carte dans la main"); }
+                }
 
-         else
-        {
-            this.setPasse(false);
-            if (this.Mainsize() == 1 && this.getUno() == true || this.getUno() == false && this.Mainsize() > 1) {
-                if (this.AJouer == false)
-                    throw new JoueurException("Le joueur n'a pas jouer et passe son tour ");
-                else {
+             else
+            {
+                this.setPasse(false);
+                if (this.Mainsize() == 1 && this.getUno() == true || this.getUno() == false && this.Mainsize() > 1) {
+                    if (this.AJouer == false)
+                        throw new JoueurException("Le joueur n'a pas jouer et passe son tour ");
+                    else {
+                        this.AJouer = false;
+                        if (partie.getNombreJoueur() >= this.Ordre + 2)
+                        {
+                        	partie.setJoueurCourant(this.Ordre + 2);
+                        	this.setUno(false);
+                        }
+                        else
+                        {
+                        	partie.setJoueurCourant((this.getOrdre() + 2) - partie.getNombreJoueur());
+                        	this.setUno(false);
+                        }
+                    }
+                } else {
+
                     this.AJouer = false;
                     if (partie.getNombreJoueur() >= this.Ordre + 2)
-                        partie.setJoueurCourant(this.Ordre + 2);
+                    {
+                    	partie.setJoueurCourant(this.Ordre + 2);
+                    	this.setUno(false);
+                    }
+
+
                     else
+                    {
+                    	partie.setJoueurCourant((this.getOrdre() + 2) - partie.getNombreJoueur());
+                    	System.out.println((this.getOrdre() + 2) - partie.getNombreJoueur());
+                    	this.setUno(false);
+                    }
+                        
 
-                        partie.setJoueurCourant((this.getOrdre() + 2) - partie.getNombreJoueur());
+                    throw new UnoException("Le Joueur à dit Uno mais à plus de une carte dans la main");
+
                 }
-            } else {
-
-                this.AJouer = false;
-                if (partie.getNombreJoueur() >= this.Ordre + 2)
-                    partie.setJoueurCourant(this.Ordre + 2);
-
-
-                else
-                    partie.setJoueurCourant((this.getOrdre() + 2) - partie.getNombreJoueur());
-
-                throw new JoueurException("Le joueur n'a pas jouer et passe son tour ");
-
             }
-        }
-
+  
 
     }
 
@@ -170,6 +196,7 @@ public class Joueur {
         {
                 MainJoueur.add(partie.getPioche(partie.Piochesize() - 1));
                 partie.removePioche(partie.Piochesize() - 1);
+                setAJouer(true);
         }
 
 
@@ -187,7 +214,26 @@ public class Joueur {
                 throw new UnoException("Dit Uno pas son tour");
             }
     }
-
+    /**
+     * Getter de l'attribut Nom
+     * @return un String Nom
+     */
+    public String getNom() {
+        return Nom;
+    }
+    
+    public void SetPartie(Partie P) {
+    	this.partie = P;
+    }
+    
+    /**
+     * Getter de l'attribut MainJoueur
+     * @return un ArrayList de carte MainJoueur
+     */
+    public ArrayList<Carte> getMainJoueur() {
+        return MainJoueur;
+    }
+    
     /**
      * Getter de l'attribut uno
      * @return un boolean Uno

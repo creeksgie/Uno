@@ -56,7 +56,7 @@ public class Test {
 
 
     /**
-     * Teste si la carte pausé par Alice est bien de la bonne couleur
+     * Teste si la carte pausÃ© par Alice est bien de la bonne couleur
      * @param partie la partie
      */
     public  void AliceBonneCouleur(Partie partie)
@@ -113,7 +113,7 @@ public class Test {
                 throw new IllegalArgumentException("Le joueur courant n'est pas Bob");
             }
 
-            System.out.printf("Alice joue une carte de la bonne couleur : ✓");
+            System.out.printf("Alice joue une carte de la bonne couleur : OK");
         } catch (Exception e) {
             e.printStackTrace();
             exit(1);
@@ -121,7 +121,7 @@ public class Test {
     }
 
     /**
-     * Teste si la carte pausé par Bob est bien valide alors qu'elle n'a pas la bonne couleur
+     * Teste si la carte pausÃ© par Bob est bien valide alors qu'elle n'a pas la bonne couleur
      * @param partie
      */
     public void BobBonneCarteCouleurDiff(Partie partie)
@@ -171,7 +171,7 @@ public class Test {
                 throw  new IllegalArgumentException("Le joueur courant n'est pas Charle");
             }
 
-            System.out.printf("\nBob joue une carte de couleur différente mais de même valeur : ✓");
+            System.out.printf("\nBob joue une carte de couleur différente mais de même valeur : OK");
 
 
         }catch (Exception e){
@@ -201,7 +201,7 @@ public class Test {
                 throw  new IllegalArgumentException("Alice n'a pas 3 carte dans la main");
             }
 
-            System.out.printf("\nLes test coup illégaux avec carte simple passe");
+            System.out.printf("\nTest d’une carte illégale : OK");
 
         } catch (JoueurException e)
         {
@@ -215,7 +215,7 @@ public class Test {
     }
 
     /**
-     * Teste sur l'exception ou un joueur joue 2 carte legal lors du même tour
+     * Teste sur l'exception ou un joueur joue 2 carte legal lors du mÃªme tour
      * @param partie la partie
      */
     public void DeuxCarteLegale(Partie partie)
@@ -257,7 +257,7 @@ public class Test {
                 throw  new IllegalArgumentException("Charle n'a pas deux carte dans la main");
             }
 
-            System.out.printf("\nLes test 2 carte légale de suite passe");
+            System.out.printf("\nTest d’un joueur qui pose deux cartes légales de suite : OK");
 
         } catch (CarteException e)
         {
@@ -293,7 +293,7 @@ public class Test {
             if(Alice.Mainsize() != 3)
                 throw  new IllegalArgumentException("Alice n'a pas 3 carte dans la main");
 
-            System.out.printf("\nLes test Alice fin de tour sans jouer");
+            System.out.printf("\nTest d’un joueur qui finit son tour sans rien faire : OK");
         } catch (UnoException e)
         {
             e.printStackTrace();
@@ -330,7 +330,7 @@ public class Test {
                 throw  new IllegalArgumentException("Pas la bonne carte");
             }
 
-            System.out.printf("\nLes test joueur joue puis pioche passe");
+            System.out.printf("\nTest d’un joueur qui joue puis pioche : OK");
         }catch (JoueurException e)
         {
            e.printStackTrace();
@@ -389,7 +389,7 @@ public class Test {
                     throw new IllegalArgumentException("Le deux vert n'est pas au sommet de la pioche");
                 }
 
-                System.out.println("\nTest Alice punition passe");
+                System.out.println("\nTest de la punition pour un coup illégal d’Alice (joueur courant) : OK");
 
             }catch(JoueurException a)
             {
@@ -409,7 +409,7 @@ public class Test {
     }
 
     /**
-     * Teste de la punition quand Bob décide de jouer alors que ce n'est pas son tour
+     * Teste de la punition quand Bob dÃ©cide de jouer alors que ce n'est pas son tour
      * @param partie la partie
      */
     public void BobPasSontTour(Partie partie)
@@ -456,7 +456,7 @@ public class Test {
                     throw new IllegalArgumentException("Le deux vert n'est pas au sommet de la pioche");
                 }
 
-                System.out.println("Test action bob pas sont tour : OK");
+                System.out.println("Test d’une action de bob lorsque ce n’est pas son tour: OK");
             } catch (PiocheException a)
             {
                 a.printStackTrace();
@@ -517,7 +517,7 @@ public class Test {
                 throw new IllegalArgumentException("Bob n'est pas le joueurs courant");
             }
 
-            System.out.printf("Test Alice Uno");
+            System.out.printf("Test lorsqu’Alice dit « Uno ! » au bon moment : OK");
 
         }catch(Exception e)
         {
@@ -571,7 +571,7 @@ public class Test {
                     throw new IllegalArgumentException("\nBob n'est pas le joueurs courant");
                 }
 
-                System.out.printf("\nTest Alice oubli Uno\n");
+                System.out.printf("\nTest lorsqu’Alice oubli de dire « Uno ! » : OK\n");
 
             }catch(JoueurException a){
                 a.printStackTrace();
@@ -638,7 +638,7 @@ public class Test {
                     throw  new IllegalArgumentException("\nAlice n'est pas le joueurs courant");
                 }
 
-                System.out.printf("Test Bob Uno pas son tour");
+                System.out.printf("Test lorsque Bob dit « Uno ! » quand ce n’est pas son tour : OK");
 
             }catch(JoueurException a)
             {
@@ -726,7 +726,7 @@ public class Test {
                 throw new IllegalArgumentException("\nLe 6 vert n'est pas au sommet de la pioche");
             }
 
-            System.out.printf("\nTest Passe ton tour : OK");
+            System.out.printf("\nTest de coups légaux avec des cartes « Passe ton tour » : OK");
 
         } catch (JoueurException e)
         {
@@ -796,7 +796,7 @@ public class Test {
                 throw new IllegalArgumentException("Charle n'a pas 3 carte dans la main");
             }
 
-            System.out.printf("\nTest carte simple illégale sur Passe : OK\n");
+            System.out.printf("\nTest d’une carte simple illégale sur un « Passe ton tour » : OK\n");
 
         } catch (JoueurException e)
         {
@@ -867,7 +867,7 @@ public class Test {
                 throw new IllegalArgumentException("Charle n'a pas 3 carte dans la main");
             }
 
-            System.out.printf("Test carte passe Illegale sur Simple : OK\n");
+            System.out.printf("Test d’un « Passe ton tour » illégal sur une carte simple : OK\n");
 
         }catch (JoueurException e)
         {
@@ -942,7 +942,7 @@ public class Test {
                 throw new IllegalArgumentException("Charle n'a pas 2 carte dans la main");
             }
 
-            System.out.printf("Test carte Simple sur PlusDeux : OK\n");
+            System.out.printf("Test d’un coup légal avec une carte « +2 » : OK\n");
 
         }catch (Exception e){e.printStackTrace();
 
